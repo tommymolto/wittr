@@ -1,36 +1,36 @@
 # Wittr
 
-This is a silly little demo app for an offline-first course.
+Exemplo simples para estudo de PWA.
 
-# Installing
+# Instalaçao
 
-Dependencies:
+Dependencias:
 
-* [Node.js](https://nodejs.org/en/) v0.12.7 or above
+* [Node.js](https://nodejs.org/en/) v0.12.7 ou superior
 
-Then check out the project and run:
+Faça o checkout do projeto e rode:
 
 ```sh
 npm install
 ```
 
-# Running
+# Executar
 
 ```sh
 npm run serve
 ```
 
-You should now have the app server at [localhost:8888](http://localhost:8888) and the config server at [localhost:8889](http://localhost:8888).
+Você deverá ter seu aplicativo rodando em  [localhost:8888](http://localhost:8888) e o servidor de backend em  [localhost:8889](http://localhost:8888).
 
-You can also configure the ports:
+Você também pode configurar as portas:
 
 ```sh
 npm run serve -- --server-port=8000 --config-server-port=8001
 ```
 
-# Troubleshooting
+# FAQ
 
-- Errors while executing `npm run serve`
-  - The first thing to try is to upgrade to latest version of node
-  - If latest version also produces errors, try installing v4.5.0
-    - An easy for that would be to use `nvm` as discussed [here](http://stackoverflow.com/a/7718438/1585523)
+- Erros ao rodar `npm run serve`
+  - Atualize o node para a ultima versao
+  - Se na ultima versao, instale a v4.5.0
+    - Outra opcao é utilizar nvm [aqui](http://stackoverflow.com/a/7718438/1585523)
