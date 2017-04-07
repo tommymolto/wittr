@@ -1,90 +1,90 @@
 import idb from 'idb';
 
-var dbPromise = idb.open('test-db', 3, function(upgradeDb) {
+var dbPromise = idb.open('pospoa', 3, function(upgradeDb) {
   switch(upgradeDb.oldVersion) {
     case 0:
-      var keyValStore = upgradeDb.createObjectStore('keyval');
-      keyValStore.put("world", "hello");
+      var chavevalorStore = upgradeDb.createObjectStore('chavevalor');
+      chavevalorStore.put("world", "hello");
     case 1:
-      upgradeDb.createObjectStore('people', { keyPath: 'name' });
+      upgradeDb.createObjectStore('usuario', { keyPath: 'nome' });
     case 2:
-      var peopleStore = upgradeDb.transaction.objectStore('people');
-      peopleStore.createIndex('animal', 'favoriteAnimal');
+      var usuarioStore = upgradeDb.transaction.objectStore('usuario');
+      usuarioStore.createIndex('cor', 'corFavorita');
   }
-  // TODO: create an index on 'people' named 'age', ordered by 'age'
+  // TODO: criar um indice em 'usuario' chamado 'idade', ordenado por 'idade'
 });
 
-// read "hello" in "keyval"
+// ler "hello" em "chavevalor"
 dbPromise.then(function(db) {
-  var tx = db.transaction('keyval');
-  var keyValStore = tx.objectStore('keyval');
-  return keyValStore.get('hello');
+  var tx = db.transaction('chavevalor');
+  var chavevalorStore = tx.objectStore('chavevalor');
+  return chavevalorStore.get('hello');
 }).then(function(val) {
-  console.log('The value of "hello" is:', val);
+  console.log('valor de "hello" :', val);
 });
 
-// set "foo" to be "bar" in "keyval"
+// criar "foo" com valor "bar" em "chavevalor"
 dbPromise.then(function(db) {
-  var tx = db.transaction('keyval', 'readwrite');
-  var keyValStore = tx.objectStore('keyval');
-  keyValStore.put('bar', 'foo');
+  var tx = db.transaction('chavevalor', 'readwrite');
+  var chavevalorStore = tx.objectStore('chavevalor');
+  chavevalorStore.put('bar', 'foo');
   return tx.complete;
 }).then(function() {
-  console.log('Added foo:bar to keyval');
+  console.log('Adicionado foo:bar em chavevalor');
 });
 
 dbPromise.then(function(db) {
-  var tx = db.transaction('keyval', 'readwrite');
-  var keyValStore = tx.objectStore('keyval');
-  keyValStore.put('cat', 'favoriteAnimal');
+  var tx = db.transaction('chavevalor', 'readwrite');
+  var chavevalorStore = tx.objectStore('chavevalor');
+  chavevalorStore.put('cat', 'corFavorita');
   return tx.complete;
 }).then(function() {
-  console.log('Added favoriteAnimal:cat to keyval');
+  console.log('Added corFavorita:cat to chavevalor');
 });
 
-// add people to "people"
+// adicionar usuarios em "usuario"
 dbPromise.then(function(db) {
-  var tx = db.transaction('people', 'readwrite');
-  var peopleStore = tx.objectStore('people');
+  var tx = db.transaction('usuario', 'readwrite');
+  var usuarioStore = tx.objectStore('usuario');
 
-  peopleStore.put({
+  usuarioStore.put({
     name: 'Sam Munoz',
     age: 25,
-    favoriteAnimal: 'dog'
+    corFavorita: 'vermelho'
   });
 
-  peopleStore.put({
+  usuarioStore.put({
     name: 'Susan Keller',
     age: 34,
-    favoriteAnimal: 'cat'
+    corFavorita: 'vermelho'
   });
 
-  peopleStore.put({
+  usuarioStore.put({
     name: 'Lillie Wolfe',
     age: 28,
-    favoriteAnimal: 'dog'
+    corFavorita: 'azul'
   });
 
-  peopleStore.put({
+  usuarioStore.put({
     name: 'Marc Stone',
     age: 39,
-    favoriteAnimal: 'cat'
+    corFavorita: 'azul'
   });
 
   return tx.complete;
 }).then(function() {
-  console.log('People added');
+  console.log('usuarios adicionados');
 });
 
-// list all cat people
+// list all cat usuario
 dbPromise.then(function(db) {
-  var tx = db.transaction('people');
-  var peopleStore = tx.objectStore('people');
-  var animalIndex = peopleStore.index('animal');
+  var tx = db.transaction('usuario');
+  var usuarioStore = tx.objectStore('usuario');
+  var corIndex = usuarioStore.index('cor');
 
-  return animalIndex.getAll('cat');
-}).then(function(people) {
-  console.log('Cat people:', people);
+  return corIndex.getAll('azul');
+}).then(function(usuario) {
+  console.log('usuarios com azul:', usuario);
 });
 
-// TODO: console.log all people ordered by age
+// TODO: console.log all usuario ordered by age
