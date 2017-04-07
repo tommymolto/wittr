@@ -163,12 +163,10 @@ IndexController.prototype._onSocketMessage = function(data) {
       store.put(message);
     });
 
-    // TODO: keep the newest 30 entries in 'wittrs',
-    // but delete the rest.
+    // TODO: somente manter no banco os 30 ultimos registros mais atuais
     //
-    // Hint: you can use .openCursor(null, 'prev') to
-    // open a cursor that goes through an index/store
-    // backwards.
+    // Hint: voce pode usar .openCursor(null, 'prev') para
+      //ir ao contrario na store
   });
 
   this._postsView.addPosts(messages);
