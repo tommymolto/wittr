@@ -76,12 +76,13 @@ dbPromise.then(function(db) {
   console.log('usuarios adicionados');
 });
 
-// list all cat usuario
+
 dbPromise.then(function(db) {
   var tx = db.transaction('usuario');
   var usuarioStore = tx.objectStore('usuario');
+    //cria indice
   var corIndex = usuarioStore.index('cor');
-
+    // lista usuarios com cor azul
   return corIndex.getAll('azul');
 }).then(function(usuario) {
   console.log('usuarios com azul:', usuario);
