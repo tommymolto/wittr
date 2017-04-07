@@ -71,17 +71,14 @@ IndexController.prototype._showCachedMessages = function() {
   var indexController = this;
 
   return this._dbPromise.then(function(db) {
-    // if we're already showing posts, eg shift-refresh
-    // or the very first load, there's no point fetching
-    // posts from IDB
+    // se é o primeiro carregamento, nao trazer do cache
     if (!db || indexController._postsView.showingPosts()) return;
 
-    // TODO: get all of the wittr message objects from indexeddb,
-    // then pass them to:
+    // TODO: pegar as mensagens do IDB e passa-als para
     // indexController._postsView.addPosts(messages)
-    // in order of date, starting with the latest.
-    // Remember to return a promise that does all this,
-    // so the websocket isn't opened until you're done!
+    // na ordem de dara
+    // Lembre-se de fazer em Promises para nao deixar o socket aberto
+      // até acabar
   });
 };
 
