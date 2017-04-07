@@ -1,34 +1,34 @@
 # Wittr
 
-This is a silly little demo app for an offline-first course.
+Uma demo boba de offline first
 
-# Installing
+# Instalando
 
-Dependencies:
+Dependencias:
 
-* [Node.js](https://nodejs.org/en/) v0.12.7 or above
+* [Node.js](https://nodejs.org/en/) v0.12.7 ou acima
 
-Then check out the project and run:
+De um checkout e rode:
 
 ```sh
 npm install
 ```
 
-# Running
+# Rodando
 
 ```sh
 npm run serve
 ```
 
-You should now have the app server at [localhost:8888](http://localhost:8888) and the config server at [localhost:8889](http://localhost:8888).
+Você deve ter o projeto do aplicativo rodando em [localhost:8888](http://localhost:8888) e o servidor de configuração em t [localhost:8889](http://localhost:8888).
 
-You can also configure the ports:
+Se quiser, configure as portas com :
 
 ```sh
 npm run serve -- --server-port=8000 --config-server-port=8001
 ```
 
-# Troubleshooting
+# FAQ
 
 - Errors while executing `npm run serve`
   - The first thing to try is to upgrade to latest version of node
