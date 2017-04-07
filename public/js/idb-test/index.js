@@ -1,18 +1,18 @@
 import idb from 'idb';
 
-var dbPromise = idb.open('test-db', 4, function(upgradeDb) {
+var dbPromise = idb.open('pospoa', 4, function(upgradeDb) {
   switch(upgradeDb.oldVersion) {
     case 0:
       var keyValStore = upgradeDb.createObjectStore('keyval');
       keyValStore.put("world", "hello");
     case 1:
-      upgradeDb.createObjectStore('people', { keyPath: 'name' });
+      upgradeDb.createObjectStore('usuario', { keyPath: 'nome' });
     case 2:
-      var peopleStore = upgradeDb.transaction.objectStore('people');
-      peopleStore.createIndex('animal', 'favoriteAnimal');
+      var usuarioStore = upgradeDb.transaction.objectStore('usuario');
+      usuarioStore.createIndex('animal', 'corFavorita');
     case 3:
-      peopleStore = upgradeDb.transaction.objectStore('people');
-      peopleStore.createIndex('age', 'age');
+      usuarioStore = upgradeDb.transaction.objectStore('usuario');
+      usuarioStore.createIndex('idade', 'idade');
   }
 });
 
@@ -38,73 +38,73 @@ dbPromise.then(function(db) {
 dbPromise.then(function(db) {
   var tx = db.transaction('keyval', 'readwrite');
   var keyValStore = tx.objectStore('keyval');
-  keyValStore.put('cat', 'favoriteAnimal');
+  keyValStore.put('cat', 'corFavorita');
   return tx.complete;
 }).then(function() {
-  console.log('Added favoriteAnimal:cat to keyval');
+  console.log('Added corFavorita:cat to keyval');
 });
 
-// add people to "people"
+// add usuario to "usuario"
 dbPromise.then(function(db) {
-  var tx = db.transaction('people', 'readwrite');
-  var peopleStore = tx.objectStore('people');
+  var tx = db.transaction('usuario', 'readwrite');
+  var usuarioStore = tx.objectStore('usuario');
 
-  peopleStore.put({
-    name: 'Sam Munoz',
-    age: 25,
-    favoriteAnimal: 'dog'
+  usuarioStore.put({
+    nome: 'Sam Munoz',
+    idade: 25,
+    corFavorita: 'dog'
   });
 
-  peopleStore.put({
-    name: 'Susan Keller',
-    age: 34,
-    favoriteAnimal: 'cat'
+  usuarioStore.put({
+    nome: 'Susan Keller',
+    idade: 34,
+    corFavorita: 'cat'
   });
 
-  peopleStore.put({
-    name: 'Lillie Wolfe',
-    age: 28,
-    favoriteAnimal: 'dog'
+  usuarioStore.put({
+    nome: 'Lillie Wolfe',
+    idade: 28,
+    corFavorita: 'dog'
   });
 
-  peopleStore.put({
-    name: 'Marc Stone',
-    age: 39,
-    favoriteAnimal: 'cat'
+  usuarioStore.put({
+    nome: 'Marc Stone',
+    idade: 39,
+    corFavorita: 'cat'
   });
 
   return tx.complete;
 }).then(function() {
-  console.log('People added');
+  console.log('usuario added');
 });
 
-// list all cat people
+// list all cat usuario
 dbPromise.then(function(db) {
-  var tx = db.transaction('people');
-  var peopleStore = tx.objectStore('people');
-  var animalIndex = peopleStore.index('animal');
+  var tx = db.transaction('usuario');
+  var usuarioStore = tx.objectStore('usuario');
+  var animalIndex = usuarioStore.index('animal');
 
   return animalIndex.getAll('cat');
-}).then(function(people) {
-  console.log('Cat people:', people);
+}).then(function(usuario) {
+  console.log('Cat usuario:', usuario);
 });
 
-// people by age
+// usuario by age
 dbPromise.then(function(db) {
-  var tx = db.transaction('people');
-  var peopleStore = tx.objectStore('people');
-  var ageIndex = peopleStore.index('age');
+  var tx = db.transaction('usuario');
+  var usuarioStore = tx.objectStore('usuario');
+  var ageIndex = usuarioStore.index('idade');
 
   return ageIndex.getAll();
-}).then(function(people) {
-  console.log('People by age:', people);
+}).then(function(usuario) {
+  console.log('usuario by idade:', usuario);
 });
 
 // Using cursors
 dbPromise.then(function(db) {
-  var tx = db.transaction('people');
-  var peopleStore = tx.objectStore('people');
-  var ageIndex = peopleStore.index('age');
+  var tx = db.transaction('usuario');
+  var usuarioStore = tx.objectStore('usuario');
+  var ageIndex = usuarioStore.index('idade');
 
   return ageIndex.openCursor();
 }).then(function(cursor) {
@@ -112,7 +112,7 @@ dbPromise.then(function(db) {
   return cursor.advance(2);
 }).then(function logPerson(cursor) {
   if (!cursor) return;
-  console.log("Cursored at:", cursor.value.name);
+  console.log("Cursored at:", cursor.value.nome);
   // I could also do things like:
   // cursor.update(newValue) to change the value, or
   // cursor.delete() to delete this entry
