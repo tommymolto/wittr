@@ -9,11 +9,11 @@ function openDatabase() {
     return Promise.resolve();
   }
 
-  // TODO: return a promise for a database called 'wittr'
-  // that contains one objectStore: 'wittrs'
-  // that uses 'id' as its key
-  // and has an index called 'by-date', which is sorted
-  // by the 'time' property
+  // TODO: criar o database'wittr'
+  // com uma store 'wittrs'
+  // com 'id' de chave
+  // e indice 'by-date', ordenado
+  // por the 'time'
 }
 
 export default function IndexController(container) {
@@ -133,7 +133,7 @@ IndexController.prototype._onSocketMessage = function(data) {
   this._dbPromise.then(function(db) {
     if (!db) return;
 
-    // TODO: put each message into the 'wittrs'
+    // TODO: salvar as mensagens em 'wittrs'
     // object store.
   });
 
