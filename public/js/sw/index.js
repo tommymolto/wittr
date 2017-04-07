@@ -1,7 +1,7 @@
 var staticCacheName = 'wittr-static-v3';
 
 self.addEventListener('install', function(event) {
-  // TODO: cache /skeleton rather than the root page
+  // TODO: cachear /skeleton ao inves da raiz
 
   event.waitUntil(
     caches.open(staticCacheName).then(function(cache) {
@@ -33,8 +33,7 @@ self.addEventListener('activate', function(event) {
 });
 
 self.addEventListener('fetch', function(event) {
-  // TODO: respond to requests for the root page with
-  // the page skeleton from the cache
+  // TODO: responder a raiz com o cache do skeleton
 
   event.respondWith(
     caches.match(event.request).then(function(response) {
