@@ -9,12 +9,11 @@ self.addEventListener('install', function(event) {
   ];
 
   event.waitUntil(
-    // TODO: open a cache named 'wittr-static-v1'
-    // Add cache the urls from urlsToCache
+    // TODO: crie um cahce com nome'wittr-static-v1'
+    // crie no cache as urls do array urlsToCache
   );
 });
 
 self.addEventListener('fetch', function(event) {
-  // Leave this blank for now.
-  // We'll get to this in the next task.
+  // Ja ja chegamos aqui
 });
