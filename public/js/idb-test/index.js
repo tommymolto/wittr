@@ -1,31 +1,31 @@
 import idb from 'idb';
 
-var dbPromise = idb.open('test-db', 1, function(upgradeDb) {
-  var keyValStore = upgradeDb.createObjectStore('keyval');
+var dbPromise = idb.open('pospoa', 1, function(upgradeDb) {
+  var keyValStore = upgradeDb.createObjectStore('chavevalor');
   keyValStore.put("world", "hello");
 });
 
-// read "hello" in "keyval"
+// ler "hello" em  "chavevalor"
 dbPromise.then(function(db) {
-  var tx = db.transaction('keyval');
-  var keyValStore = tx.objectStore('keyval');
+  var tx = db.transaction('chavevalor');
+  var keyValStore = tx.objectStore('chavevalor');
   return keyValStore.get('hello');
 }).then(function(val) {
-  console.log('The value of "hello" is:', val);
+  console.log('valor de "hello" :', val);
 });
 
-// set "foo" to be "bar" in "keyval"
+// adicionar "foo" com valor "bar" em "chavevalor"
 dbPromise.then(function(db) {
-  var tx = db.transaction('keyval', 'readwrite');
-  var keyValStore = tx.objectStore('keyval');
+  var tx = db.transaction('chavevalor', 'readwrite');
+  var keyValStore = tx.objectStore('chavevalor');
   keyValStore.put('bar', 'foo');
   return tx.complete;
 }).then(function() {
-  console.log('Added foo:bar to keyval');
+  console.log('AdAdicionadoded foo:bar em chavevalor');
 });
 
 dbPromise.then(function(db) {
-  // TODO: in the keyval store, set
-  // "favoriteAnimal" to your favourite animal
-  // eg "cat" or "dog"
+  // TODO: na store chavevalor
+  // adicione corFavorita
+  // e uma cor
 });
