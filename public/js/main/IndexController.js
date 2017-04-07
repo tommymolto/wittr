@@ -159,11 +159,11 @@ IndexController.prototype._cleanImageCache = function() {
   return this._dbPromise.then(function(db) {
     if (!db) return;
 
-    // TODO: open the 'wittr' object store, get all the messages,
-    // gather all the photo urls.
+    // TODO: abrir o store 'wittr' , pegar todas as mensagens
+    // e suas fotos
     //
-    // Open the 'wittr-content-imgs' cache, and delete any entry
-    // that you no longer need.
+    // abrir o cache 'wittr-content-imgs' cache,
+      //e deletar o que nao é mais necessário
   });
 };
 
