@@ -38,5 +38,5 @@ self.addEventListener('fetch', function(event) {
   );
 });
 
-// TODO: listen for the "message" event, and call
-// skipWaiting if you get the appropriate message
+// TODO: escutar por mensagens,
+// e acionar skipWaiting na mensagem correta
