@@ -44,11 +44,15 @@ self.addEventListener('fetch', function(event) {
       return;
     }
     if (requestUrl.pathname.startsWith('/photos/')) {
-      event.respondWith(servePhoto(event.request));
+      event.respondWith(serveAvatar(event.request));
       return;
     }
     // TODO: respond to avatar urls by responding with
     // the return value of serveAvatar(event.request)
+      if (requestUrl.pathname.startsWith('/avatars/')) {
+          event.respondWith(servePhoto(event.request));
+          return;
+      }
   }
 
   event.respondWith(
@@ -65,7 +69,17 @@ function serveAvatar(request) {
   // use a url para comaprar e cachear/servir
 
   var storageUrl = request.url.replace(/-\dx\.jpg$/, '');
+    return caches.open(contentImgsCache).then(function(cache) {
+        return cache.match(storageUrl).then(function(response) {
+          var networkFecth = fetch(request).then(function(netResp){
+            cache.put(storageUrl, netResp.clone())
+              return netResp;
 
+          })
+
+          return response || networkFecth;
+        });
+    });
   // TODO: pegue do cache "wittr-content-imgs"
   // se la estiverem, mas apos atualize pela rede
 }
