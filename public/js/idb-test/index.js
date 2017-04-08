@@ -1,6 +1,6 @@
 import idb from 'idb';
 
-var dbPromise = idb.open('pospoa', 3, function(upgradeDb) {
+var dbPromise = idb.open('pospoapwa', 5,function(upgradeDb) {
   switch(upgradeDb.oldVersion) {
     case 0:
       var chavevalorStore = upgradeDb.createObjectStore('chavevalor');
@@ -36,7 +36,7 @@ dbPromise.then(function(db) {
 dbPromise.then(function(db) {
   var tx = db.transaction('chavevalor', 'readwrite');
   var chavevalorStore = tx.objectStore('chavevalor');
-  chavevalorStore.put('cat', 'corFavorita');
+  chavevalorStore.put('azul', 'corFavorita');
   return tx.complete;
 }).then(function() {
   console.log('Added corFavorita:cat to chavevalor');
@@ -48,25 +48,25 @@ dbPromise.then(function(db) {
   var usuarioStore = tx.objectStore('usuario');
 
   usuarioStore.put({
-    name: 'Sam Munoz',
+    nome: 'Sam Munoz',
     age: 25,
     corFavorita: 'vermelho'
   });
 
   usuarioStore.put({
-    name: 'Susan Keller',
+      nome: 'Susan Keller',
     age: 34,
     corFavorita: 'vermelho'
   });
 
   usuarioStore.put({
-    name: 'Lillie Wolfe',
+      nome: 'Lillie Wolfe',
     age: 28,
     corFavorita: 'azul'
   });
 
   usuarioStore.put({
-    name: 'Marc Stone',
+      nome: 'Marc Stone',
     age: 39,
     corFavorita: 'azul'
   });
